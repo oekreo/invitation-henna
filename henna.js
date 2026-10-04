@@ -15,9 +15,7 @@ const weddingData = {
   showTime: false, // true = تظهر الساعة بجانب التاريخ
   venueName: "قاعة العشق الملكية",
   venueAddress: "بغداد، زيونة",
-  mapsLink:
-    "https://waze.com/ul/hsvzted1ex" +
-    encodeURIComponent("قاعة العشق الملكية زيونة بغداد"), // الأفضل استبداله برابط الموقع الدقيق
+  mapsLink:"https://waze.com/ul/hsvzted1ex" +encodeURIComponent("قاعة العشق الملكية زيونة بغداد"), // الأفضل استبداله برابط الموقع الدقيق
   photo: "groom.jpg", // صورة العريس
   musicFile: "زفة.mp3.mp3", // ضع ملفك بجانب الصفحة، أو "" لنغمة هادئة مدمجة
   shareUrl: "", // رابط الدعوة بعد رفعها
