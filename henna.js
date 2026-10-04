@@ -12,7 +12,7 @@ const weddingData = {
     "لمشاركتي حفل حنتي",
   ],
   weddingDate: "2026-10-12T18:00:00", // التاريخ والساعة (الساعة هنا للعدّاد فقط، غيّرها حسب الحفل)
-  showTime: false, // true = تظهر الساعة بجانب التاريخ
+  showTime: true, // true = تظهر الساعة بجانب التاريخ
   venueName: "قاعة العشق الملكية",
   venueAddress: "بغداد، زيونة",
   mapsLink:"https://waze.com/ul/hsvzted1ex" +encodeURIComponent("قاعة العشق الملكية زيونة بغداد"), // الأفضل استبداله برابط الموقع الدقيق
