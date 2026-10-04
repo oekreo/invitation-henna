@@ -43,7 +43,7 @@ if (isNaN(weddingDate))
   console.error("weddingDate غير صالح، استخدم الصيغة 2026-12-18T19:00:00");
 
 
-document.title = `دعوة حفل حنة ${weddingData.groomName}`;
+document.title = `دعوة   ${weddingData.groomName}`;
 weddingData.introLines.forEach((txt, i) => {
   const p = document.createElement("p");
   p.className = "rv";
