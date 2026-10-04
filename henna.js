@@ -1,25 +1,23 @@
-/* =====================================================
-   1) بيانات الدعوة — غيّر كل شيء من هذا المكان فقط
-   ===================================================== */
+
 const weddingData = {
   groomName: "علي عبدالكاظم البهادلي",
   introLines: [
-    // سطور الدعوة بالترتيب
+    
     "بسم الله الذي زوج النور بالنور",
     "وعلى حب فاطمة وعلي (ع) نبدأ المسير",
     "بوافر من الحب والسعادة",
     "أتشرف بدعوتكم",
     "لمشاركتي حفل حنتي",
   ],
-  weddingDate: "2026-10-12T18:00:00", // التاريخ والساعة (الساعة هنا للعدّاد فقط، غيّرها حسب الحفل)
-  showTime: true, // true = تظهر الساعة بجانب التاريخ
+  weddingDate: "2026-10-12T18:00:00", 
+  showTime: true, 
   venueName: "قاعة العشق الملكية",
   venueAddress: "بغداد، زيونة",
   mapsLink:"https://maps.apple.com/place?address=712-14,%20Baghdad,%20Iraq&coordinate=33.322174,44.452965&name=712-14&map=explore" +encodeURIComponent("قاعة العشق الملكية زيونة بغداد"), // الأفضل استبداله برابط الموقع الدقيق
-  photo: "groom.jpg", // صورة العريس
-  musicFile: "زفة.mp3.mp3", // ضع ملفك بجانب الصفحة، أو "" لنغمة هادئة مدمجة
-  shareUrl: "", // رابط الدعوة بعد رفعها
-  eventId: "ali-henna", // يفصل تهاني هذه الدعوة عن غيرها في نفس الجدول
+  photo: "groom.jpg", 
+  musicFile: "زفة.mp3.mp3", 
+  shareUrl: "https://oekreo.github.io/invitation-henna/henna.html", 
+  eventId: "ali-henna", 
   supabaseUrl: "https://zyvzsyhtaktfwefyocvv.supabase.co",
   supabaseKey: "sb_publishable_dtG74CGgX7eQgs2ahF3Now_mZtYdjtV",
   locale: "ar-IQ",
@@ -27,9 +25,7 @@ const weddingData = {
   sampleWishes: [],
 };
 
-/* =====================================================
-   2) تجهيزات عامة
-   ===================================================== */
+
 const $ = (id) => document.getElementById(id);
 const weddingDate = new Date(weddingData.weddingDate);
 const loc = `${weddingData.locale}-u-nu-${weddingData.arabicDigits ? "arab" : "latn"}`;
@@ -46,12 +42,12 @@ const timeText = new Intl.DateTimeFormat(loc, { timeStyle: "short" }).format(
 if (isNaN(weddingDate))
   console.error("weddingDate غير صالح، استخدم الصيغة 2026-12-18T19:00:00");
 
-// تعبئة النصوص من البيانات
+
 document.title = `دعوة حفل حنة ${weddingData.groomName}`;
 weddingData.introLines.forEach((txt, i) => {
   const p = document.createElement("p");
   p.className = "rv";
-  p.style.transitionDelay = `${i * 0.15}s`; // ظهور متتابع للسطور
+  p.style.transitionDelay = `${i * 0.15}s`; 
   p.textContent = txt;
   $("lines").append(p);
 });
@@ -67,7 +63,7 @@ $("mapBtn").href = weddingData.mapsLink;
 if (weddingData.photo) {
   $("groomPhoto").src = weddingData.photo;
   $("groomPhoto").alt = weddingData.groomName;
-  $("groomPhoto").onerror = () => ($("photoWrap").hidden = true); // لا صورة = لا إطار فارغ
+  $("groomPhoto").onerror = () => ($("photoWrap").hidden = true); 
 }
 
 let toastTimer;
@@ -79,9 +75,7 @@ function toast(msg) {
   toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
 }
 
-/* =====================================================
-   3) العدّ التنازلي
-   ===================================================== */
+
 function tick() {
   const diff = Math.max(0, weddingDate - Date.now()) || 0;
   const s = Math.floor(diff / 1000);
@@ -94,9 +88,7 @@ function tick() {
 tick();
 setInterval(tick, 1000);
 
-/* =====================================================
-   4) الموسيقى (ملف mp3 أو نغمة مدمجة احتياطية)
-   ===================================================== */
+
 const audio = new Audio();
 audio.loop = true;
 if (weddingData.musicFile) audio.src = weddingData.musicFile;
@@ -147,7 +139,7 @@ function setMusicUI(on) {
 async function playMusic() {
   playing = true;
   setMusicUI(true);
-  // نجهّز الصوت داخل لحظة الضغط نفسها لأن المتصفحات تمنعه بعدها
+  
   ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
   ctx.resume();
   if (!useSynth) {
@@ -156,7 +148,7 @@ async function playMusic() {
       return;
     } catch {
       useSynth = true;
-    } // الملف غير موجود → النغمة المدمجة
+    } 
   }
   if (playing) startSynth();
 }
@@ -170,9 +162,7 @@ $("musicBtn").addEventListener("click", () =>
   playing ? stopMusic() : playMusic(),
 );
 
-/* =====================================================
-   5) فتح الدعوة
-   ===================================================== */
+
 function initReveal() {
   const io = new IntersectionObserver(
     (entries) => {
@@ -191,8 +181,8 @@ function initReveal() {
 $("openBtn").addEventListener("click", () => {
   const intro = $("intro");
   if (intro.classList.contains("open")) return;
-  intro.classList.add("open"); // الظرف يُفتح والبطاقة تخرج
-  playMusic(); // الموسيقى تبدأ بعد تفاعل المستخدم
+  intro.classList.add("open"); 
+  playMusic(); 
   setTimeout(() => intro.classList.add("out"), 1500);
   setTimeout(() => {
     document.body.classList.remove("locked");
@@ -205,16 +195,12 @@ $("openBtn").addEventListener("click", () => {
   setTimeout(() => intro.remove(), 2800);
 });
 
-/* =====================================================
-   6) دفتر التهاني — مشترك لكل الضيوف عبر Supabase
-   (إذا تركت supabaseUrl فارغًا يُحفظ على جهاز الزائر فقط)
-   ===================================================== */
 const db =
   weddingData.supabaseUrl && window.supabase
     ? supabase.createClient(weddingData.supabaseUrl, weddingData.supabaseKey)
     : null;
 if (!db) console.warn("Supabase غير متصل: التهاني تُحفظ على هذا الجهاز فقط");
-const KEY = "wedding-wishes-" + weddingData.eventId; // مفتاح منفصل لكل دعوة
+const KEY = "wedding-wishes-" + weddingData.eventId; 
 const savedWishes = () => {
   try {
     return JSON.parse(localStorage.getItem(KEY)) || [];
@@ -227,10 +213,10 @@ function addCard({ name, text }) {
   card.className = "wish";
   const n = document.createElement("b");
   const p = document.createElement("p");
-  n.textContent = name; // textContent يمنع إدخال أكواد ضارة
+  n.textContent = name; 
   p.textContent = text;
   card.append(n, p);
-  $("wishes").prepend(card); // الأحدث في الأعلى
+  $("wishes").prepend(card); 
 }
 async function loadWishes() {
   if (!db)
@@ -277,9 +263,6 @@ $("wishForm").addEventListener("submit", async (e) => {
   toast("شكرًا لك! أُضيفت تهنئتك ❤️");
 });
 
-/* =====================================================
-   7) مشاركة الدعوة على واتساب
-   ===================================================== */
 $("shareBtn").addEventListener("click", () => {
   const url = weddingData.shareUrl || location.href;
   const msg = `يسرّني دعوتكم لحضور حفل حنتي 💍\n${weddingData.groomName}\n${dateText}\n${url}`;
